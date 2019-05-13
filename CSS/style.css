@@ -1,0 +1,363 @@
+/*#menu
+{
+	background-color: #343A50;
+	padding-top     : 15px;
+	padding-bottom  : 15px;
+	height          : 25px;
+	box-sizing      : initial;
+	font-size       : 18px;
+	padding-right   : 15%;
+	padding-left    : 15%;
+}
+
+/*#menu div:first-child
+{
+	border-left: 1px white solid;
+}*/
+
+/*#menu a div
+{
+	display      : inline;
+	/*padding-left : 5px;
+	padding-right: 5px;*/
+	/*border-right : 1px white solid;*/
+	/*border: 1px white solid;
+	padding : 10px;
+}
+
+#menu a
+{
+	color          :white;
+	text-decoration: none;
+}
+
+#menu a div:hover
+{
+	/*transition-delay: 0.2s;*/
+	/*color          :red;
+	text-decoration: none;
+	background-color: white;
+}*/
+
+div.menu{
+	background-color: #335;
+	list-style-type: none;
+	overflow: hidden;
+	/*position: fixed;*/
+	top: 0;
+	width: 100%;
+}
+
+ul.menu {
+	list-style-type: none;
+	display: table;
+	margin: 0 auto;
+}
+
+li.menu {
+	float: left;
+}
+
+li.menu a.menu {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+li.menu a.menu:hover:not(.active) {
+	background-color: #ddd;
+  	color: black;
+}
+
+.menu.active {
+	background-color: #131313;
+  	color: white;
+}
+
+/*.topnav {
+  background-color: #f2f2f2;
+  overflow: hidden;
+}
+
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  border-bottom: 1px solid #555;
+}
+
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+.topnav a.active {
+  background-color: #131313;
+  color: white;
+}*/
+
+body
+{
+	margin: 0px;
+}
+
+nav
+{
+	background-color: rgba(213, 239, 230, 0.75);
+	width           : fit-content;
+	position        : fixed;
+	padding         : 10px;
+	margin-left     : 5px;
+	margin-top      : 60px;
+	border-radius   : 10px;
+	font-size       : 12px;
+}
+
+article
+{
+	margin-right    : 15%;
+	margin-left     : 15%;
+	height          : calc( 95% - 55px );
+	/*text-align      : justify; CASSE COUILLE*/
+	background-color: rgba(213, 239, 230, 0.75);
+	padding         : 10px; 
+	overflow        : auto;
+}
+
+footer
+{
+	height          : 5%;
+	font-size       : 12px;
+	color           : white;
+	text-align      : center;
+	background-color: black;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
+.bDecoCo
+{
+	background-color: rgba(213, 239, 230, 0.75);
+	border-radius   : 5px;
+	border: rgba(135, 151, 146, 0.75) 1px solid;
+}
+
+.texteBas
+{
+	margin-block-start: 0px;
+	margin-block-end  : 0px;
+	color             : white;
+}
+
+.texteBas a:link
+{
+	color: #5ca6e6;
+}
+html, body {
+	margin : 0;
+	padding: 0;
+	width  : 100%;
+	height: 100%;
+	/*max-height: unset;*/
+/*	height : 100%; ça casse tout quand le contenu est trop important pour un ecran */
+}
+
+body {
+	background-image: url("../img/background1.png");
+	background-size: 100%;
+ 	font-family: Verdana, sans-serif; 
+ 	font-size: 100%;
+}
+
+h1 {
+ 	font-size: 200%; 
+ 	color: black; 
+	text-align: center;
+}
+
+h2 {
+ 	font-size: 150%; 
+ 	color: black; 
+ 	padding-left: 15px;
+}
+ 
+h3 {
+ 	font-size: 125%; 
+ 	color: black; 
+ 	margin-left: 20px;
+}
+ 
+h4 {
+ font-size: 110%; 
+ 		color: black; 
+ 	margin-left: 20px;
+}
+
+/*p,ul,li,td {
+	color: black; 
+}
+
+a:link {
+ 	color: blue;
+ 	text-decoration: underline;
+}
+
+a:visited {
+ 	color: purple;
+}
+
+a:hover {
+ 	color: blue;
+ 	text-decoration: none;
+}
+
+a:active, a:focus {
+ 	color: green;
+}*/
+
+div.tableResponsive {
+	style: overflow-x:auto;
+}
+
+table, th, td {
+	border-collapse: collapse;
+	border         : 1px solid black;
+}
+
+table {
+  	width: 100%;
+}
+
+th, td {
+  	padding: 15px;
+  	text-align: center;
+}
+
+th {
+	background-color: #004080;
+	color: white;
+  	height: 50px;
+}
+
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+tr:hover {
+	background-color: #ddd;
+}
+
+div.modifContainer {
+	 border-radius: 5px;
+	  background-color: #f2f2f2;
+	  padding: 20px;
+}
+
+input[type=text], input[type=password], select, textarea {
+	  width: 100%;
+	  padding: 12px 20px;
+	  margin: 8px 0;
+	  display: inline-block;
+	  border: 1px solid #ccc;
+	  border-radius: 4px;
+	  box-sizing: border-box;
+}
+
+input[type=submit], #bAjoutMembre, #bSuppMembre, #bAjoutMedia, #bSuppMedia {
+	  width: 100%;
+	  background-color: #4CAF50;
+	  color: white;
+	  padding: 14px 20px;
+	  margin: 8px 0;
+	  border: none;
+	  border-radius: 4px;
+	  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  	background-color: #45a049;
+}
+
+input.admin {
+	width: 100%;
+	height: 50px;
+	border-radius: 12px;
+	background-color: #0080c0;
+	font-weight: bold;
+	font-size: 25px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+  	transition-duration: 0.4s;
+}
+
+input.admin:hover {
+  	background-color: #0000ff;
+  	color: white;
+}
+
+input.plus {
+	width: min-content;
+	height: 50px;
+	border-radius: 8px;
+	background-color: #00ff00;
+	font-weight: bold;
+	font-size: 25px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+  	transition-duration: 0.4s;
+}
+
+input.plus:hover {
+  	background-color: #008000;
+  	color: white;
+}
+
+input.moins {
+	width: min-content;
+	height: 50px;
+	border-radius: 8px;
+	background-color: #ff0000;
+	font-weight: bold;
+	font-size: 25px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+  	transition-duration: 0.4s;
+}
+
+input.moins:hover {
+  	background-color: #800000;
+  	color: white;
+}
+
+
+
+.boutton_co{
+margin-left: auto;
+margin-right: auto;
+width: 50px;
+height: 50px;
+}
+
+.deconnexion {
+background-size: cover;
+width: 300px;
+height: 200px;
+}
+
+.navigation{
+padding: 14px 16px;
+text-align: center;
+width:80px;
+ height:120px;
+ background: #FFFFFF;
+ margin:10px auto;
+ border-radius: 10px;
+ border: 2px solid black;
+}
