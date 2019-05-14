@@ -22,16 +22,26 @@
 <?php
 	$i = 2;
 	foreach($articles as $article){
-		if ($i == 1)
-			$i = 2;
-		else
-			$i = 1;
+		if ($article->getDate() > getDate()){
+			if ($i == 1)
+				$i = 2;
+			else
+				$i = 1;
+			
+			echo '<div class="CR-border'.$i.'">
+			<h3>'.$article->getTitre().'</h3>';
 		
-		echo '<div class="CR-border'.$i.'">';
-		echo '<h3>'.$article->getTitre().'</h3>';
-		echo $article->getTexte();
-		echo '<p> Auteur : '.$article->getAuteur()->getSurnom().'</p>';
-		echo '</div><p></p>';
+			$imgs = $articleRepository->getMedias($article->getId());
+			foreach($imgs as $img){
+				if(file_exists($img)){
+						echo '<img class=media src="'.$img.'" alt="img not found"/>'; 
+				}
+			}
+		
+			echo '<p>'.$article->getTexte().'</p>
+			<p> Auteur : '.$article->getAuteur()->getSurnom().'</p>
+			</div><p></p>';
+		}
 	}
 ?>
 

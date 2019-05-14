@@ -8,6 +8,10 @@
 $id_page="admin";
 require '../src/Jeu/Jeu.php';
 require '../src/Jeu/JeuRepository.php';
+require '../src/Membre/Membre.php';
+require '../src/Membre/MembreRepository.php';
+require '../src/Equipe/Equipe.php';
+require '../src/Equipe/EquipeRepository.php';
 require( "../inc/inc.default.php" );
 require( "../inc/inc.nav.php" );
 entete( "jeux" ,$id_page);
@@ -18,12 +22,10 @@ if(!isset($_SESSION['pseudo'])){ //Si pas connecté, renvoie vers la page de con
     exit();
 }
 
-$dbName = 'realitiie';
-$dbUser = 'postgres';
-$dbPassword = 'postgres';
-$connection = new PDO("pgsql:host=localhost user=$dbUser dbname=$dbName password=$dbPassword");
 
-$jeuRepository = new \Jeu\JeuRepository($connection);;
+
+$jeuRepository = new \Jeu\JeuRepository($connection);
+$equipeRepository = new \Equipe\EquipeRepository($connection);
 $jeux = $jeuRepository->fetchAll();
 ?>
 
@@ -36,13 +38,12 @@ $jeux = $jeuRepository->fetchAll();
     	<tr><th>Titre</th></tr>
     	<?php 
     	foreach ($jeux as $jeu) {
-    	    //TODO Vérifier qu'il fait partie de l'équipe
-    	    //if($_SESSION['role'] == 'a' || $article->getAuteur()->getId() == $_SESSION['id']){
+    	    if($_SESSION['role'] == 'a' || $equipeRepository->faitPartieEquipe($jeu->getId(), $_SESSION['id'])){
         	    echo 
         	    '<tr><td>
                     <a href="jeuModification.php?id='.$jeu->getId().'">'.$jeu->getTitre().'</a>
                  </td></tr>';
-    	    //}
+    	    }
     	}
     	?>
     </table>

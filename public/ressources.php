@@ -8,6 +8,11 @@
 	
 	navAccueil();
 
+	$dbName = 'realitiie';
+	$dbUser = 'postgres';
+	$dbPassword = 'postgres';
+	$connection = new PDO("pgsql:host=localhost user=$dbUser dbname=$dbName password=$dbPassword");
+
 	$TutoRepository = new \Tuto\TutoRepository($connection);
 	$tutos = $TutoRepository->fetchAll();
 	
@@ -24,7 +29,9 @@
 			<p>'.$tuto->getTitre().'</p>
 			<p>'.$tuto->getTexte().'</p>
 			<p>
-				<a href="../document/Tuto/'.$tuto->getPdf().'>view '.$tuto->getTitre().'.pdf</a>
+				<a href="../document/Tuto/'.$tuto->getPdf().'">
+					view '.$tuto->getTitre().'.pdf
+				</a>
 			</p>
 			</div><br/>';
 	}

@@ -40,6 +40,12 @@ if($jeu == NULL){ //Si jeu introuvable, renvoie vers la page de d'administration
     echo '<h4>Redirection vers la liste des projets...</h4>';
 	header( "refresh:3;url=jeux.php" );
 	
+}else if($_SESSION['role'] == 'a' || $equipesRepository->faitPartieEquipe($jeu->getId(), $_SESSION['id'])){ //Si pas administrateur, renvoie vers d'administration
+		
+	echo '<h4>Erreur: Vous n\'avez pas la permission de modifier ce projet car vous ne faites pas partie de l\'equipe</h4>';
+	echo '<h4>Redirection vers la page d\'administration...</h4>';
+	header( "refresh:3;url=admin.php" );
+	
 }else if(isset($_POST['modification'])){ //Si jeu est modfifié, modification de la bdd puis renvoie vers la page de d'administration des jeux
 	
 	$idJeu       = htmlspecialchars_decode($_GET['id']);

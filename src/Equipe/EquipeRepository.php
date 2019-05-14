@@ -1,7 +1,10 @@
 <?php
 namespace Equipe;
-use Jeu\JeuRepository;
+
 use Membre\Membre;
+use Jeu\JeuRepository;
+
+
 
 class EquipeRepository
 {
@@ -84,6 +87,7 @@ class EquipeRepository
 		return $status;
 	}
 
+
 	public function deleteEquipe( $idJeu, $idMembre )
 	{
 		$sql = "DELETE FROM equipe WHERE id_jeu = ? AND id_membre= ?";
@@ -126,4 +130,15 @@ class EquipeRepository
         
         return $equipe;
     }
+	
+	public function faitPartieEquipe($idJeu, $id_membre){
+		$equipe = $this->getEquipe($idJeu);
+		foreach ($equipe->getMembres() as $membre) {
+			if($id_membre == $membre->getId()){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

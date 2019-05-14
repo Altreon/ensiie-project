@@ -44,7 +44,8 @@ if($maj == NULL){ //Si la mise à jour introuvable, renvoie vers la page des pro
     echo '<h4>Redirection vers le projet...</h4>';
     header( "refresh:3;url=jeuModification.php?id=".$maj->getJeu()->getId());
 }else if(isset($_POST['supression'])){ //Si la mise a jour est supprimé, modification de la bdd puis renvoie vers la page de modification du projet
-    $status = $MajRepository->deleteMiseajour($_GET['id']);
+	$MajRepository->deleteAllMedia($_GET['id']);
+	$status = $MajRepository->deleteMiseajour($_GET['id']);
     
     if($status){
         echo '<h4>La mise a jour n°'.$_GET['id'].' a bien été supprimé</h4>';
@@ -63,8 +64,11 @@ if($maj == NULL){ //Si la mise à jour introuvable, renvoie vers la page des pro
         <form action="" method="POST">
         	<label>Texte : </label><textarea name="texte" rows="5" cols="40" required><?php echo $maj->getTexte() ?></textarea>
         	<br/>
-        	<label>Date de publication : </label><input name="date" type="date" value="<?php echo $maj->get_Date()->format('Y-m-d') ?>" required/>
-        	<input type="submit" name="modification" value="Envoyer"/>
+        	<label>Date de publication : </label><input name="date" type="date" value="<?php echo $maj->getDate()->format('Y-m-d') ?>" required/>
+        	<?php
+				echo '<a href="../private/mediaModification.php?idMaj='.$maj->getId().'" >Modifier l\'image de mise à jour</a>';
+			?>
+			<input type="submit" name="modification" value="Envoyer"/>
         </form>
     </div>
     

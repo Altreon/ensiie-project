@@ -1,6 +1,6 @@
 <head>
 	<link rel="stylesheet" href="../CSS/style.css">
-	<script rel="text/javascript" src="../JS/ajoutChamp.js"></script>
+	<script rel="text/javascript" src="../JS/ajoutMedia.js"></script>
 </head>
 
 <body>
@@ -43,8 +43,23 @@ if(isset($_POST['creation'])){ //Si le jeu est créé, modification de la bdd pu
 		$equipeRepository->createEquipe( $idJeu, $idMembre, $role );
 		$i = $i + 1;
 	}
+	
+	$i = 1;
+    $envoie = TRUE;
+    while( isset($_FILES['media'.$i] )) {
+        $lien = "../media/";
+        $lien = $lien . basename($_FILES['media'.$i]['name']);
+        if(!move_uploaded_file($_FILES['media'.$i]['tmp_name'], $lien)) {
+            echo '<h1>'.var_dump($lien).'</h1>';
+            $envoie = FALSE;
+            break;
+        }else{
+            $jeuRepository->addMedia($idJeu, $lien);
+        }
+        $i = $i + 1;
+    }
 
-	if($status){
+	if($status && $envoie){
 		echo '<h4>Le projet a bien été créé</h4>';
 	}else{
 		echo '<h4>Erreur: la création du nouveau projet a échoué!</h4>';
@@ -58,7 +73,7 @@ if(isset($_POST['creation'])){ //Si le jeu est créé, modification de la bdd pu
                 
     ?>
     <div class="modifContainer">
-        <form id="formAjoutProjet" action="" method="POST" onsubmit="return verficationEnvoie()">
+        <form id="formAjout" id="formAjoutProjet" action="" method="POST" onsubmit="return verficationEnvoie()" enctype="multipart/form-data">
         	<label>Titre : </label><input name="titre" type="text" required/>
         	<br/>
 			<label>Description : </label><textarea name="description" rows="5" cols="40" required></textarea>
@@ -68,6 +83,10 @@ if(isset($_POST['creation'])){ //Si le jeu est créé, modification de la bdd pu
 			<label>Lien de téléchargement : </label><textarea name="telechargement" rows="5" cols="40" required></textarea>
 			<input type="button" id="bAjoutMembre" onclick="ajoutMembre()" value="Ajouter un membre" />
 			<input type="button" id="bSuppMembre" onclick="suppMembre()" style="background-color:red" value="Supprimer le dernier Membre" />
+        	
+			<input type="button" id="bAjoutMedia" onclick="ajoutMedia()" value="Ajouter une image" />
+			<input type="button" id="bSuppMedia" onclick="suppMedia()" style="background-color:red" value="Supprimer la dernière image" />
+        	
         	<input type="submit" id="bEnvoyer" name="creation" value="Envoyer"/>
         </form>
     </div>

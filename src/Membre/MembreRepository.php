@@ -149,4 +149,57 @@ class MembreRepository
         
         return $membre;
     }
+	
+	public function getIdMembre( $surnom )
+    {
+        $row = $this->connection->query('SELECT id_membre FROM membre WHERE surnom = \''.$surnom.'\' ')->fetchAll(\PDO::FETCH_OBJ);
+        if(count($row) == 0){
+            return NULL;
+        }
+        return $row[0]->id_membre;
+    }
+	
+	public function deleteAllMedia($id){
+        $rows = $this->connection->query('SELECT lien
+                                          FROM media
+                                          WHERE id_membre = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+        foreach ($rows as $row) {
+            if (file_exists($row->lien)) {
+                unlink($row->lien);
+            }
+        }
+        
+        $sql = "DELETE FROM media
+                WHERE id_membre = ?";
+        $req = $this->connection->prepare($sql);
+        $status = $req->execute(array($id));
+        return $status;
+    }
+    
+    public function addMedia($id, $lien){
+        $sql = "INSERT INTO media
+                (id_membre, lien) VALUES (?, ?);";
+        $req = $this->connection->prepare($sql);
+        $status = $req->execute(array($id, $lien));
+        return $status;
+    }
+    
+    public function getMedias( $id )
+    {
+        $rows = $this->connection->query('SELECT lien
+                                          FROM media
+                                          WHERE id_membre = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+		$liens = [];
+        foreach ($rows as $row) {
+            $liens[] = $row->lien;
+        }
+        
+        return $liens;
+	}
+	
+	public function getMediasFromMembre( $id )
+	{
+		$res = $this->connection->query('SELECT * FROM media WHERE id_membre = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+		return $res;
+	}
 }

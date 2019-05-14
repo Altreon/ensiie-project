@@ -1,5 +1,6 @@
 <head>
 	<link rel="stylesheet" href="../CSS/style.css">
+	<script rel="text/javascript" src="../JS/ajoutMedia.js"></script>
 </head>
 
 <body>
@@ -36,7 +37,25 @@ if($jeu == NULL){ //Si le jeu introuvable, renvoie vers la page des projets
 }else if(isset($_POST['creation'])){ //Si la mise a jour est créé, modification de la bdd puis renvoie vers la page du projet
     
     $status = $MajRepository->createMiseajour($_GET['id_jeu'], $_POST['texte'], $_POST['date']);
-    if($status){
+	
+	$idMaj = $MajRepository->getIdMiseajour( $_GET['id_jeu'], $_POST['texte']);
+	
+	$i = 1;
+	$envoie = TRUE;
+    while( isset($_FILES['media'.$i] )) {
+        $lien = "../media/";
+        $lien = $lien . basename($_FILES['media'.$i]['name']);
+        if(!move_uploaded_file($_FILES['media'.$i]['tmp_name'], $lien)) {
+            echo '<h1>'.var_dump($lien).'</h1>';
+            $envoie = FALSE;
+            break;
+        }else{
+            $MajRepository->addMedia($idMaj, $lien);
+        }
+        $i = $i + 1;
+    }
+	
+    if($status && $envoie){
         echo '<h4>La mise a jour a bien été créé</h4>';
     }else{
         echo '<h4>Erreur: la création d\'une nouvelle mise a jour a échoué!</h4>';
@@ -51,11 +70,15 @@ if($jeu == NULL){ //Si le jeu introuvable, renvoie vers la page des projets
     ?>
     
     <div class="modifContainer">
-        <form action="" method="POST">
+        <form id="formAjout" action="" method="POST"  enctype="multipart/form-data" >
         	<label>Texte : </label><textarea name="texte" rows="5" cols="40" required></textarea>
         	<br/>
         	<label>Date de publication : </label><input name="date" type="date"  required/>
-        	<input type="submit" name="creation" value="Envoyer"/>
+			
+        	<input type="button" id="bAjoutMedia" onclick="ajoutMedia()" value="Ajouter une image" />
+			<input type="button" id="bSuppMedia" onclick="suppMedia()" style="background-color:red" value="Supprimer la dernière image" />
+        	
+        	<input type="submit" id="bEnvoyer" name="creation" value="Envoyer"/>
         </form>
     </div>    
     

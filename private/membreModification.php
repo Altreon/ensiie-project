@@ -49,7 +49,8 @@ if($membre == NULL){ //Si membre introuvable, renvoie vers la page de d'administ
     echo '<h4>Redirection vers la liste des membres...</h4>';
     header( "refresh:3;url=membre.php" );
 }else if(isset($_POST['supression'])){ //Si membre est supprimé, modification de la bdd puis renvoie vers la page de d'administration des membres
-    $status = $membreRepository->deleteMembre($_GET['id']);
+	$membreRepository->deleteAllMedia($_GET['id']);
+	$status = $membreRepository->deleteMembre($_GET['id']);
     
     if($status){
         echo '<h4>Le membre n°'.$_GET['id'].' a bien été supprimé</h4>';
@@ -99,6 +100,9 @@ if($membre == NULL){ //Si membre introuvable, renvoie vers la page de d'administ
         		}
         		?>
         	</select>
+			<?php
+				echo '<a href="../private/mediaModification.php?idMembre='.$membre->getId().'" >Modifier la photo de profil</a>';
+			?>
         	<input type="submit" name="modification" value="Envoyer"/>
         </form>
     </div>

@@ -131,4 +131,57 @@ class MiseajourRepository
         $status = $req->execute(array($id_jeu, $texte, $date));
         return $status;
     }
+	
+	public function getIdMiseajour( $id_jeu, $texte)
+    {
+        $row = $this->connection->query('SELECT id_maj FROM miseajour WHERE id_jeu = \''.$id_jeu.'\' AND texte = \''.$texte.'\' ')->fetchAll(\PDO::FETCH_OBJ);
+        if(count($row) == 0){
+            return NULL;
+        }
+        return $row[0]->id_maj;
+    }
+	
+	public function deleteAllMedia($id){
+        $rows = $this->connection->query('SELECT lien
+                                          FROM media
+                                          WHERE id_maj = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+        foreach ($rows as $row) {
+            if (file_exists($row->lien)) {
+                unlink($row->lien);
+            }
+        }
+        
+        $sql = "DELETE FROM media
+                WHERE id_maj = ?";
+        $req = $this->connection->prepare($sql);
+        $status = $req->execute(array($id));
+        return $status;
+    }
+    
+    public function addMedia($id, $lien){
+        $sql = "INSERT INTO media
+                (id_maj, lien) VALUES (?, ?);";
+        $req = $this->connection->prepare($sql);
+        $status = $req->execute(array($id, $lien));
+        return $status;
+    }
+    
+    public function getMedias( $id )
+    {
+        $rows = $this->connection->query('SELECT lien
+                                          FROM media
+										  WHERE id_maj = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+        $liens = [];
+        foreach ($rows as $row) {
+            $liens[] = $row->lien;
+        }
+        
+        return $liens;
+	}
+	
+	public function getMediasFromMiseajour( $id )
+	{
+		$res = $this->connection->query('SELECT * FROM media WHERE id_maj = '.$id)->fetchAll(\PDO::FETCH_OBJ);
+		return $res;
+	}
 }
